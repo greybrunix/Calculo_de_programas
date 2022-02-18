@@ -1,0 +1,84 @@
+* Calculo de programas
+** Aula T01
+*** Porquê funcionais
+  As linguagens funcionais são as mais simples que temos.
+  Haskell é a linguagem mais proxima que se vai utilizar.
+  O seguinte é um exemplo de um exercicio de teste que foi dada a opção de fazer com qualquer linguagem:
+**** From a mobile phone manufacturer
+    For each *_list of calls_* stored in the mobile phone, the *_store_* operation should work in a way such that: 
+    *(a)* the more recently a call is made, the more accessible it is;
+    *(b)* no number appears twice in a list; 
+    *(c)* only the last 10 entries in each list are stored.
+ (ver resolução no ficheiro haskell, notes.hs)
+***** Analise da resolução
+"store c l = c :" trata de (a), o que faz é colocar a nova chamada no topo da lista aka na head
+"filter (/= c) l" trata de (b), o que assegura que não existem elementos repetidos na lista
+"store'" trata de (c) assegura que só temos 10 elementos na lista
+
+****** Analise aprofundada de store'
+store' está bem tipado pois recebe store'' Call:: [Call] -> [Call]
+então é [call]<--- take 10  <---[call]--- c: <---[call]---- filter(/= c) <----[call]---- l <-[call]
+
+**** Em geral 
+  y = f(g(h x))
+y <--A--- f <---B--- g <---C--- h <---D--- x
+  
+Nota o combinador de instruções é binario
+  y = f(g x)
+
+y <---A--- f <---B--- g <---A--- x
+*** Composição de funções
+Em haskell (ou na computação em si) o combinador não é o ; mas sim a composição de funções.
+Simplificação
+  y = f(g x)
+
+A <---f--- B <--- g --- C 
+
+A <--- f . g --- C
+
+  y = (f . g) x 
+**** Associatividade da composição das funções
+    (f . g) . h = f . (g . h)
+    (a + b) + c = a + (b + c)
+             f . g . h
+             a + b + c
+**** Elemento neutro 
+             f + 0 = 0 + f = f
+**** Função identidade
+             f + i = i + f = f
+
+    A<---id---A
+
+id a = a  
+
+A <---id --- A 
+'          / |
+f      f     f
+' /          | 
+B <---id---- B
+
+**** Propriedades
+
+Associatividade e Natural-id
+             f.id = id.f = f
+
+*** Outros operadores binarios para funções???
+ Sim!
+
+C - f -> B e A -g-> C
+
+D-f->B A-g->C
+D = A ?
+se sim:
+A -f-> B ,A -g-> C
+(f a, g a)
+*** Produto Cartesiano
+    A x B = {(a,b) | a in A AND b in B}
+pi1: AxB -> A
+pi1 (a,b) = a
+*** "Split"
+<f,g> a = (f a, g a) 
+
+B x C <--- <f,g> --- A
+
+B <---pi1--- BxC ---pi2---> C
