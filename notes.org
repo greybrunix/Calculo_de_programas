@@ -82,3 +82,202 @@ pi1 (a,b) = a
 B x C <--- <f,g> --- A
 
 B <---pi1--- BxC ---pi2---> C
+
+D-pi1 -DxC-pi2- E
+\| \    |    /  |
+f   \   fxg /   g
+\|   \  |  /    |
+B-pi1- BxC-pi3- C
+
+fxg = <f.pi1,g.pi2>
+
+**** Saida
+B <-pi1 -  BxC -pi2 -> C
+  \        |       /
+     f   <f,g>       g
+       \   |    /
+           A 
+           | 
+           h
+           |
+           D
+D -- f.h ---> B
+D -- g.h ---> C
+
+D --- (f.h,g.h)  ----> BxC
+
+***** Difusao de um Split
+B <--pi1-- BxC --pi2--> C
+            |
+            |
+            |
+          <f.h,g.h>
+            |
+            D
+**** Saida
+BxC --- hxk ---> DxE
+
+B --h --> D
+C --k --> E
+
+A -- (hxk) . <f,g> ---> DxE
+A -- <h.f, h.g> --> DxE
+
+***** Absorcao x  
+(hxk) . <f,g> = <h.f,k.g>
+
+*** Leis Naturais da 
+D<-pi1--DxE--pi2-->E
+-|       |         |
+ h      hxk        k
+-|       |         |
+B<-pi1--BxC--pi2-->C
+
+pi1 . (hxk) = h.pi1
+pi2 . (hxk) = h.pi2
+*** Functor id X
+id x id = id
+
+c -> id -> c
+d -> id -> d
+
+Produto de identidades é a identidade
+*** Functor x
+(fxh).(gxk) = (f.g)x(h.k)
+Composicao de produtos é o produto de composicoes
+
+*** Duas Leis
+**** Reflexao x
+          <pi1,pi2> = id
+fst >< snd $ (1,2) = (1,2)
+
+A     pi1   AxB    pi2    B
+   \         |          /
+   pi1    <p1,p2>     pi2
+       \     |     /
+            AxB
+**** Eq-x
+<i,j> = <f,g> <=> i = f and j = g
+*** Propriedade  Universal
+k = f >< g 
+<=>
+{ pi1.k = f
+{pi2.k = g
+
+**** Prova da Reflexao ><
+
+k = f >< g => pi1 . k = f AND pi2 . k = g
+
+id = f >< g <=> pi1 * id = f  AND pi2 * id = g
+OU SEJA
+id = pi1 >< p2
+
+**** Prova da Eq ><
+Resolver eq
+h><
+
+**** pi2 >< pi1?
+      BxA
+
+      AxB
+ 
+Resolver:  
+<pi2,pi1> . k = id
+em  order  a  k
+
+pi2 >< pi1 . k = id
+fusao 
+p2.k >< pi1.k = id
+universal
+{pi2 . k = pi1
+{pi1 . k = pi2
+trivial
+{pi1 . k = pi2
+{pi2 . K = pi1
+universal
+k = pi2 >< pi1 
+
+*** Swap 
+swap = pi2 >< pi2 
+swap . swap = id
+
+*** Associatividade  do ><
+Nao existe
+AxB  <--- (AxB)xC ---> C
+
+
+
+            D
+
+**** Prova formal para encontrar um k que transforme uma na outra
+AxB x C         k?          A x BxC
+
+
+
+
+               D
+
+***** Qual sera a funcao k?
+propriedades do swap 
+
+   k .  <<f,g>,h> = <f,<g,h>>
+
+****** Sera <<f,g>,h> reduzivel a identidade?
+Resolver entao <<f,g>,h> = id: :)
+<<f,g>,h>
+pi . pi = f
+snd . fst = g
+snd = h
+
+k = <pi1 . pi1, <pi2.pi1, pi2>>
+k = <pi1  . pi1,pi2xid>
+***** Existera uma funcao j?
+<id x pi1, pi2.pi2>
+
+**** Nomes para k e j
+k = assocr
+j = assocl
+
+*** Isomorfismo
+assocr . assocl = id
+assocl . assocr = id
+swap . swap = id
+
+f . g = id AND g . f = id
+*** Conversao de formatos
+Necessidade            Reutilizavel
+A                               C
+
+
+
+B                             D 
+
+f = importa . r . exporta
+
+*** Importancia do swap
+Isomorfismos sao computacoes reversiveis
+Cada bit perdido é energia desperdicada
+
+O swap e das unidades basicas da programacao quantica
+
+a-        -b
+      x    
+      x
+b-        -a
+
+qubits are the polarization
+
+Note A lot of emphasis for this isomorphisms
+
+
+
+
+* Note 
+Cp.hs
+split f g x = (f x, g x)
+
+Z >< g = split (f. fst) (g.snd)
+pi1 = fst
+pi2 = snd
+
+swap f g = g . f 
