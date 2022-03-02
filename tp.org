@@ -1,0 +1,137 @@
+* Ficha 1
+** 7
+*** f: (BxB) x B -> B
+   f((a,b),c) = (a ^ b) + c
+**** Apresentar uma definicao pointfree
+    = ((^) a b) + c
+    
+    = (+) ((^) a b) c
+    
+Let uncurry of (+) = k and uncurry of (^) = j
+
+     = (+) (j (a,b)) c (84)
+     
+    = k(j(a,b),c)) (84)
+    
+    = k(j(a,b),id c) (73)
+    
+    = k ((j >< id) ((a,b),c)) (73)
+    
+    = k.(j><id) $ ((a,b),c) (77)
+    
+    <=> f = k.(j><id) por igualdade extencional (72)
+    
+    f = (+) . (^) x id
+    
+    f = (uncurry +) . (uncurry ^ x id)
+    
+**** Desenhe o respetivo diagrama de  f = k.(jxid)
+(BxB)x B
+
+     |
+
+f    | ^xid
+
+     |
+
+     >
+     
+    BxB
+    
+     |
+
+f    | (+)
+
+     |
+
+     >
+     
+     B
+
+*** g = <p1, f>
+**** Apresente o tipo de g
+        (BxB)xB
+	
+      /   |      \
+      
+    /     |          \
+    
+  pi1     g            f
+  
+  /       |               \
+  
+BxB<--pi1--(BxB)xB --pi2--> B
+
+* Ficha 2
+** k = <f,g> <=> pi1.k = f AND pi2.k = g
+*** Prove que <h,k>.f = <h.f,k.f> usando a propriedade universal-x
+  <h,k>.f
+
+ (6) <=> pi1.(<h.k>.f) = h.f AND pi2.(<h,k>.f) = k.f
+
+ (2) <=> (pi1.<h,k>).f = h.f AND (pi2.<h,k>).f = k.f
+
+ (7) <=> h.f = h.f AND k.f = k.f
+
+  
+* Exame
+** <idxpi1, pi2.pi2> assocr AND assocl = <pi1.pi1,pi2xid>
+*** assocr . assocl = id AND assocl . assocr = id
+     assocr . assocl = id
+
+ def assocr <=> <id x pi1, pi2.pi2>.assocl = id
+     
+ (9) <=> <id.pi1 . assocl, pi2.pi2.assocl> = id
+
+ def assocl <=> <(id x pi) . <pi1.pi1,pi2xid>,pi2.pi2.<pi1.pi1,pi2xid>> =id
+
+(11),(1),(7) <=> <<pi1,pi1,pi1.(pi2xid)> >, pi2.(pi2xid)>
+
+(12),(13) (1) <=> <<p1.p1,pi2.pi1>, pi2> = id
+
+(9) <=> <<pi1,pi2>. pi1 , pi2> = id
+
+(8)(1) <=> <pi1,pi2> = id
+
+(8) <=> id
+
+
+
+    assocl . assocr = id
+
+  (8) <=> assocl . assocr = <pi1,pi2>
+
+  (7)(2) <=> pi1.assocl . assocr =pi1 AND pi2.assocl . assocr = pi2
+
+ def assocl <=> pi1 . <pi1.pi1,pi2xid> . assocr= pi1 AND pi2 .<pi1.pi1, pi2xid>.assocr=pi2
+
+ (7) <=>pi1.pi1.assocr = pi1 AND (pi2xid).assocr = pi2
+
+ def assocr <=> pi1.pi1.<idxpi1,pi2.pi2> = pi1 AND (pi2 x id) . <idxpi1,pi2.pi2> = pi2
+
+ (7)(11)(1) <=> pi1 . (idxpi1) = pi1 AND <pi2.(idxpi), pi2.pi2> = pi2
+
+ (12) (1)(13) <=> pi1 = pi1 AND <pi1.pi2,pi2.pi2> = pi2
+
+ (9) <=> <p1,p2>.p2 = p2
+
+ (8) (1) <=> TRUE AND TRUE
+
+* Ficha 3
+* xr . <<f,g> , h> = <<f,h>,g>
+** xr?
+<<f,g>, h> = id
+
+(6) <=> pi1 . id = <f,g> AND pi2 . id = h
+
+<=> pi1 = <f,g> AND pi2 = h
+
+(6)<=> pi1.pi1 = f AND pi2.pi1 = g AND pi2 = h 
+
+
+xr = <<pi1.pi1,pi2>, pi2.pi1>
+
+(1) <<pi1.pi1,id.pi2>,pi2.pi1>
+
+
+(10) xr = <pi1 x id, pi2.pi1>
